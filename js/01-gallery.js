@@ -2,12 +2,13 @@ import { galleryItems } from './gallery-items.js';
 
 let textHtml='';
 const ulSelector =document.querySelector("ul.gallery");
-
+let escAttribute = false;
 const modalImg=(event)=>{
     const instance = basicLightbox.create(`
     <img src=${event.target.dataset.source} width="800" height="600">
-`)
-instance.show()
+`);
+    instance.show();
+    document.addEventListener("keydown", (event) => onEscPress(event, instance));
 };
 
 const insertHtmlImg= ()=>{
@@ -25,5 +26,14 @@ const insertHtmlImg= ()=>{
     ulSelector.insertAdjacentHTML("afterbegin",textHtml);
 };
 
+const onEscPress = (event, instance) => {
+    const ESC_KEYCODE = "Escape";
+    if (event.code === ESC_KEYCODE) {
+      instance.close();
+      document.removeEventListener("keydown", (event) =>
+        onEscPress(event, instance)
+      );
+    }
+};
 insertHtmlImg();
 ulSelector.addEventListener("click",(event)=>modalImg(event));

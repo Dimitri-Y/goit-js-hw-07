@@ -29,7 +29,7 @@ const insertHtmlImg = () => {
   textHtml = galleryItems
     .map(
       (item) => `<li class="gallery__item">
-             <a class="gallery__link">
+             <a class="gallery__link" herf="${item.original}">
              <img class="gallery__image" 
              src=${item.preview} 
              data-source=${item.original} 
